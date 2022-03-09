@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Input from '../Input/Input';
+import getToken from '../../services/getToken';
+import updateData, { UPDATE_TOKEN } from '../../redux/action';
 
 class Form extends Component {
   state = {
@@ -26,6 +28,14 @@ class Form extends Component {
     this.setState({
       isDisabled: conditions.includes(false),
     });
+  }
+
+  handleClick = async () => {
+    const { history: { push }, dispatch } = this.props;
+    const { token } = await getToken();
+    localStorage.setItem('token', token);
+    dispatch(updateData(UPDATE_TOKEN, token));
+    push('/game');
   }
 
   render() {
@@ -54,9 +64,10 @@ class Form extends Component {
           dataTestId="input-player-name"
         />
         <button
-          type="submit"
+          type="button"
           data-testid="btn-play"
           disabled={ isDisabled }
+          onClick={ this.handleClick }
         >
           Jogar
         </button>
