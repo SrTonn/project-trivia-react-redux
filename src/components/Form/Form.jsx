@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Input from '../Input/Input';
 
 class Form extends Component {
@@ -65,3 +66,10 @@ class Form extends Component {
 }
 
 export default connect(null)(Form);
+
+Form.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
