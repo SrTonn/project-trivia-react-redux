@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Input from '../Input/Input';
 
-export default class Form extends Component {
+class Form extends Component {
   state = {
     emailInput: '',
     textInput: '',
@@ -62,3 +63,5 @@ export default class Form extends Component {
     );
   }
 }
+
+export default connect(null)(Form);
