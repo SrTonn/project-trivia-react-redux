@@ -38,6 +38,7 @@ export default class Form extends Component {
           name="emailInput"
           value={ emailInput }
           handleChange={ this.handleChange }
+          onKeyPress={ this.handleClick }
           dataTestId="input-gravatar-email"
         />
         <Input
@@ -47,6 +48,7 @@ export default class Form extends Component {
           name="textInput"
           value={ textInput }
           handleChange={ this.handleChange }
+          onKeyPress={ this.handleClick }
           dataTestId="input-player-name"
         />
         <button
