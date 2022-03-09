@@ -1,18 +1,17 @@
 import React from 'react';
-import logo from './trivia.png';
+import { Route } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom/cjs/react-router-dom.min';
+import Home from './pages/Home';
 import './App.css';
 
 export default class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <p>
-            SUA VEZ
-          </p>
-        </header>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ Home } />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
