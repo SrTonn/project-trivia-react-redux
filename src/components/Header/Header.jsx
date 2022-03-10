@@ -11,8 +11,6 @@ class Header extends Component {
       score,
     } = this.props;
 
-    console.log(this.props);
-
     return (
       <header>
         <img
