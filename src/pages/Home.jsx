@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Form from '../components/Form/Form';
 import logo from '../trivia.png';
 
-export default class Home extends Component {
+class Home extends Component {
 
-  handleClick = async () => {
+  handleClick = () => {
     const { history: { push } } = this.props;
     push('/settings');
   }
@@ -27,9 +27,11 @@ export default class Home extends Component {
       </div>
     );
   }
-  Form.propTypes = {
-    history: PropTypes.shape({
-      push: PropTypes.func,
-    }).isRequired,
-  };
 }
+export default Home;
+
+Home.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
