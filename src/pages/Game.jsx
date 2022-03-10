@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Header from '../components/Header/Header';
 
 class Game extends Component {
   render() {
     return (
-      <div>
-        Game
-      </div>
+      <Header />
     );
   }
 }
 
-const mapStateToProps = ({ reducerToken }) => ({
+const mapStateToProps = ({ reducerToken, reducerPlayer }) => ({
   ...reducerToken,
+  ...reducerPlayer,
 });
 
 export default connect(mapStateToProps)(Game);
