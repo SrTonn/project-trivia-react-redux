@@ -12,7 +12,11 @@ const INITIAL_STATE = {
 const reducerPlayer = (state = INITIAL_STATE, action) => {
   if (action.type === PLAYER_INFOS) {
     return {
-      player: action.payload,
+      player: {
+        ...state.player,
+        name: action.payload.name,
+        gravatarEmail: action.payload.gravatarEmail,
+      },
     };
   }
   return state;
