@@ -4,7 +4,6 @@ import Form from '../components/Form/Form';
 import logo from '../trivia.png';
 
 class Home extends Component {
-
   handleClick = () => {
     const { history: { push } } = this.props;
     push('/settings');
