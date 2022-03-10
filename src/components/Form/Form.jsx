@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Input from '../Input/Input';
 import getToken from '../../services/getToken';
 import updateData, { PLAYER_INFOS, UPDATE_TOKEN } from '../../redux/action';
+import Button from '../Button/Button';
 
 class Form extends Component {
   state = {
@@ -68,14 +69,12 @@ class Form extends Component {
           onKeyPress={ this.handleClick }
           dataTestId="input-player-name"
         />
-        <button
-          type="button"
-          data-testid="btn-play"
+        <Button
+          dataTestId="btn-play"
           disabled={ isDisabled }
           onClick={ this.handleClick }
-        >
-          Jogar
-        </button>
+          label="Jogar"
+        />
       </form>
     );
   }
