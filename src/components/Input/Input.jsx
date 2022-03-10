@@ -12,6 +12,7 @@ export default class Input extends Component {
       handleChange,
       className,
       dataTestId,
+      onKeyPress,
     } = this.props;
     return (
       <label htmlFor={ id }>
@@ -24,6 +25,7 @@ export default class Input extends Component {
           onChange={ handleChange }
           className={ className }
           data-testid={ dataTestId }
+          onKeyPress={ (e) => e.key === 'Enter' && onKeyPress() }
         />
       </label>
     );
@@ -35,6 +37,7 @@ Input.defaultProps = {
 
 Input.propTypes = {
   handleChange: PropTypes.func.isRequired,
+  onKeyPress: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,

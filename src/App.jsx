@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import Home from './pages/Home';
 import './App.css';
 import store from './redux/store';
+import Game from './pages/Game';
 
 export default class App extends React.Component {
   render() {
@@ -13,6 +14,7 @@ export default class App extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={ Home } />
+            <Route path="/game" component={ Game } />
           </Switch>
         </BrowserRouter>
       </Provider>

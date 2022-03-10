@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Input from '../Input/Input';
+import getToken from '../../services/getToken';
+import updateData, { UPDATE_TOKEN } from '../../redux/action';
 
-export default class Form extends Component {
+class Form extends Component {
   state = {
     emailInput: '',
     textInput: '',
@@ -26,6 +30,14 @@ export default class Form extends Component {
     });
   }
 
+  handleClick = async () => {
+    const { history: { push }, dispatch } = this.props;
+    const { token } = await getToken();
+    localStorage.setItem('token', token);
+    dispatch(updateData(UPDATE_TOKEN, token));
+    push('/game');
+  }
+
   render() {
     const { emailInput, textInput, isDisabled } = this.state;
 
@@ -38,6 +50,7 @@ export default class Form extends Component {
           name="emailInput"
           value={ emailInput }
           handleChange={ this.handleChange }
+          onKeyPress={ this.handleClick }
           dataTestId="input-gravatar-email"
         />
         <Input
@@ -47,12 +60,14 @@ export default class Form extends Component {
           name="textInput"
           value={ textInput }
           handleChange={ this.handleChange }
+          onKeyPress={ this.handleClick }
           dataTestId="input-player-name"
         />
         <button
-          type="submit"
+          type="button"
           data-testid="btn-play"
           disabled={ isDisabled }
+          onClick={ this.handleClick }
         >
           Jogar
         </button>
@@ -60,3 +75,12 @@ export default class Form extends Component {
     );
   }
 }
+
+export default connect(null)(Form);
+
+Form.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
