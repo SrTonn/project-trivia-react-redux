@@ -21,7 +21,7 @@ class Form extends Component {
   checkConditions = () => {
     const { emailInput, textInput } = this.state;
     const conditions = [
-      /^\w+@[a-z]+\.[a-z]{2,3}$/i.test(emailInput),
+      /^[a-z._]+@[a-z]+\.[a-z]{2,3}$/i.test(emailInput),
       !!textInput,
     ];
 
