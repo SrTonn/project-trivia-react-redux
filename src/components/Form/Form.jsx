@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Input from '../Input/Input';
 import getToken from '../../services/getToken';
-import updateData, { UPDATE_TOKEN } from '../../redux/action';
+import updateData, { PLAYER_INFOS, UPDATE_TOKEN } from '../../redux/action';
 
 class Form extends Component {
   state = {
@@ -33,8 +33,13 @@ class Form extends Component {
   handleClick = async () => {
     const { history: { push }, dispatch } = this.props;
     const { token } = await getToken();
+    const { emailInput, textInput } = this.state;
     localStorage.setItem('token', token);
     dispatch(updateData(UPDATE_TOKEN, token));
+    dispatch(updateData(PLAYER_INFOS, {
+      name: textInput,
+      gravatarEmail: emailInput,
+    }));
     push('/game');
   }
 
@@ -76,7 +81,13 @@ class Form extends Component {
   }
 }
 
-export default connect(null)(Form);
+const mapStateToProps = (state) => ({
+  textInput: state.player,
+  emailInput: state.gravatarEmail,
+  score: state.score,
+});
+
+export default connect(mapStateToProps)(Form);
 
 Form.propTypes = {
   dispatch: PropTypes.func.isRequired,
