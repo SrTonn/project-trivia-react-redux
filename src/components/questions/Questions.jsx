@@ -41,7 +41,9 @@ export default class Questions extends Component {
             className={ styles.Category }
             data-testid="question-category"
           >
-            {category}
+            <p title={ category.replace(/.+:/i, '') }>
+              {category.replace(/:.+/i, '')}
+            </p>
           </div>
           <p
             data-testid="question-text"
