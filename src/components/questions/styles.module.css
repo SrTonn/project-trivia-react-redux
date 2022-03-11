@@ -9,7 +9,6 @@
 }
 
 .ContainerQuestion p {
-  font-family: Roboto;
   font-size: 30px;
   font-style: normal;
   font-weight: 400;
@@ -28,7 +27,6 @@
 }
 
 .Category p {
-  font-family: Roboto;
   font-size: 25px;
   font-style: normal;
   font-weight: 400;
