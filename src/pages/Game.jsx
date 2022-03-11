@@ -39,6 +39,7 @@ class Game extends Component {
   handleClickNextQuestion = async () => {
     this.setState((prevState) => ({
       index: prevState.index + 1,
+      isAnswered: false,
     }));
   }
 

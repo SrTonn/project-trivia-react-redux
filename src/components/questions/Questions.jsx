@@ -33,9 +33,9 @@ export default class Questions extends Component {
 
   componentDidUpdate = () => {
     const { timer, intervalTimer, localIndex } = this.state;
-    const { correctAnswer, incorrectAnswer, currentIndex } = this.props;
+    const { correctAnswer, incorrectAnswer, currentIndex, isAnswered } = this.props;
 
-    if (timer === 0) {
+    if (timer === 0 || isAnswered) {
       clearInterval(intervalTimer);
     }
 
