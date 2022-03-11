@@ -34,21 +34,22 @@ class Game extends Component {
   handleClickChooseAnswer = ({ target: { name: answer } }) => {
     const { questions, index } = this.state;
     const correctAnswer = questions[index].correct_answer;
-    console.log('clicado=>', answer);
+    /* console.log('clicado=>', answer);
     console.log('res correta=>', correctAnswer);
-    console.log('a resposta está correta?', correctAnswer === answer);
+    console.log('a resposta está correta?', correctAnswer === answer); */
   }
 
-  handleClickNextQuestion = async () => {
+  handleClickNextQuestion = () => {
+    const { index } = this.state;
     this.setState((prevState) => ({
       index: prevState.index + 1,
     }));
-    if (index === 5) {
+    const INDEX_NUMBER = 4;
+    if (index === INDEX_NUMBER) {
       const { history: { push } } = this.props;
       push('/feedback');
-    } 
     }
-  }
+  };
 
   render() {
     const { questions, index } = this.state;
