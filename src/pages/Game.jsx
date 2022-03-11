@@ -12,6 +12,7 @@ class Game extends Component {
     index: 0,
     questions: [],
     isAnswered: false,
+    selectedAnswer: '',
   }
 
   componentDidMount = async () => {
@@ -25,14 +26,21 @@ class Game extends Component {
       data = await getQuestions(newToken);
     }
 
+    const storage = localStorage.getItem('ranking');
+    if (!storage) {
+      localStorage.setItem('ranking', JSON.stringify([]));
+    }
     this.setState({
       questions: data.results,
     });
   }
 
-  handleClickChooseAnswer = () => {
+  handleClickChooseAnswer = ({ target: { name } }) => {
+    // this.calculateScore(name);
+    // const { questions, index } = this.state;
     this.setState({
       isAnswered: true,
+      selectedAnswer: name,
     });
   }
 
@@ -44,13 +52,14 @@ class Game extends Component {
   }
 
   render() {
-    const { questions, index, isAnswered } = this.state;
+    const { questions, index, isAnswered, selectedAnswer } = this.state;
     return (
       <>
         <Header />
         {questions[index] && <Questions
           category={ questions[index].category }
           type={ questions[index].type }
+          difficulty={ questions[index].difficulty }
           question={ questions[index].question }
           correctAnswer={ questions[index].correct_answer }
           incorrectAnswer={ questions[index].incorrect_answers }
@@ -58,6 +67,7 @@ class Game extends Component {
           currentIndex={ index }
           handleClickNextQuestion={ this.handleClickNextQuestion }
           isAnswered={ isAnswered }
+          selectedAnswer={ selectedAnswer }
         />}
       </>
     );
