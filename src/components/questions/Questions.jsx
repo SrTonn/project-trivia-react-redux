@@ -88,8 +88,6 @@ export default class Questions extends Component {
       isAnswered,
     } = this.props;
 
-    console.log(answerList);
-
     return (
       <>
         <div className={ styles.ContainerQuestion }>
@@ -136,11 +134,9 @@ export default class Questions extends Component {
 }
 
 Questions.propTypes = {
-  // handleClick: PropTypes.func.isRequired,
   handleClickChooseAnswer: PropTypes.func.isRequired,
   handleClickNextQuestion: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
-  // type: PropTypes.string.isRequired,
   question: PropTypes.string.isRequired,
   correctAnswer: PropTypes.string.isRequired,
   incorrectAnswer: PropTypes.string.isRequired,
