@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import updateData, { UPDATE_SCORE } from '../../redux/action';
 import Button from '../Button/Button';
 import styles from './styles.module.css';
 
-export default class Questions extends Component {
+class Questions extends Component {
   state = {
     initialTimer: 30,
     timer: 30,
@@ -33,10 +35,17 @@ export default class Questions extends Component {
 
   componentDidUpdate = () => {
     const { timer, intervalTimer, localIndex } = this.state;
-    const { correctAnswer, incorrectAnswer, currentIndex, isAnswered } = this.props;
+    const {
+      correctAnswer,
+      incorrectAnswer,
+      currentIndex,
+      isAnswered,
+      selectedAnswer,
+    } = this.props;
 
     if (timer === 0 || isAnswered) {
       clearInterval(intervalTimer);
+      this.calculateScore(selectedAnswer);
     }
 
     if (localIndex !== currentIndex) {
@@ -47,6 +56,37 @@ export default class Questions extends Component {
       this.shuffleArrayAndUpdateState(correctAnswer, incorrectAnswer);
       clearInterval(intervalTimer);
       this.startTimer();
+    }
+  }
+
+  getDifficulty = () => {
+    const { difficulty } = this.props;
+    const HARD = 3;
+    const MEDIUM = 2;
+    const EASY = 1;
+
+    switch (difficulty) {
+    case 'hard':
+      return HARD;
+    case 'medium':
+      return MEDIUM;
+    case 'easy':
+      return EASY;
+    default:
+      return 0;
+    }
+  }
+
+  calculateScore = (answer) => {
+    const { timer } = this.state;
+    const { dispatch, correctAnswer } = this.props;
+    if (answer === correctAnswer) {
+      const TEEN = 10;
+      const difficulty = this.getDifficulty();
+      const score = TEEN + (difficulty * timer);
+      const totalScore = score;
+      // localStorage.setItem('score', totalScore);
+      dispatch(updateData(UPDATE_SCORE, score));
     }
   }
 
@@ -133,14 +173,18 @@ export default class Questions extends Component {
   }
 }
 
+export default connect(null)(Questions);
+
 Questions.propTypes = {
   handleClickChooseAnswer: PropTypes.func.isRequired,
   handleClickNextQuestion: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
   question: PropTypes.string.isRequired,
   correctAnswer: PropTypes.string.isRequired,
-  incorrectAnswer: PropTypes.string.isRequired,
+  incorrectAnswer: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedAnswer: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
   currentIndex: PropTypes.number.isRequired,
   isAnswered: PropTypes.bool.isRequired,
-
+  dispatch: PropTypes.func.isRequired,
 };
