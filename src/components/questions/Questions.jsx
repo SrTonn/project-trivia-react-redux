@@ -5,8 +5,8 @@ import styles from './styles.module.css';
 
 export default class Questions extends Component {
   state = {
-    initialTimer: 3,
-    timer: 3,
+    initialTimer: 30,
+    timer: 30,
     answerList: [],
     localIndex: 0,
   }
@@ -14,7 +14,7 @@ export default class Questions extends Component {
   componentDidMount = () => {
     const { correctAnswer, incorrectAnswer } = this.props;
     this.startTimer();
-    this.shuffleArrayAndUpdateState([correctAnswer, ...incorrectAnswer]);
+    this.shuffleArrayAndUpdateState(correctAnswer, incorrectAnswer);
   }
 
   startTimer = () => {
@@ -44,13 +44,19 @@ export default class Questions extends Component {
         localIndex: currentIndex,
         timer: prevState.initialTimer,
       }));
-      this.shuffleArrayAndUpdateState([correctAnswer, ...incorrectAnswer]);
+      this.shuffleArrayAndUpdateState(correctAnswer, incorrectAnswer);
       clearInterval(intervalTimer);
       this.startTimer();
     }
   }
 
-  shuffleArrayAndUpdateState = (array) => {
+  shuffleArrayAndUpdateState = (correctAnswer, incorrectAnswer) => {
+    const listWrong = incorrectAnswer.map((answer, index) => (
+      { question: answer, typeOfAnswer: `wrong-answer-${index}` }));
+    const array = [
+      ...listWrong,
+      { question: correctAnswer, typeOfAnswer: 'correct-answer' },
+    ];
     let currentIndex = array.length;
     let randomIndex;
 
@@ -72,13 +78,17 @@ export default class Questions extends Component {
     const { timer, answerList } = this.state;
     const {
       category,
-      type,
+      // type,
       // difficulty,
       question,
-      correctAnswer,
-      incorrectAnswer,
-      handleClick,
+      // correctAnswer,
+      // incorrectAnswer,
+      handleClickChooseAnswer,
+      handleClickNextQuestion,
+      isAnswered,
     } = this.props;
+
+    console.log(answerList);
 
     return (
       <>
@@ -87,8 +97,8 @@ export default class Questions extends Component {
             className={ styles.Category }
             data-testid="question-category"
           >
-            <p title={ category.replace(/.+:/i, '') }>
-              {category.replace(/:.+/i, '')}
+            <p>
+              {category}
             </p>
           </div>
           <p
@@ -97,29 +107,44 @@ export default class Questions extends Component {
             {question}
           </p>
         </div>
+
         <p className={ styles.Timer }>{`Tempo: ${timer}`}</p>
-        <div className={ styles.ContainerAnswer }>
-          {answerList.map((answer) => (
+
+        <div data-testid="answer-options" className={ styles.ContainerAnswer }>
+          {answerList.map(({ question, typeOfAnswer }) => (
             <Button
-              key={ answer }
-              label={ answer }
-              name={ answer }
-              onClick={ handleClick }
+              key={ question }
+              label={ question }
+              name={ question }
+              dataTestId={ typeOfAnswer }
+              className={ timer <= 0 || isAnswered
+                ? `${styles[typeOfAnswer.replace(/-\d/, '')]}` : null }
+              onClick={ handleClickChooseAnswer }
+              disabled={ timer <= 0 || isAnswered }
             />
           ))}
-          {/* {type === 'boolean' ? '2 questions - type bool' : '5 questions'} */}
         </div>
+        <Button
+          label="Próximo"
+          name="next"
+          onClick={ handleClickNextQuestion }
+          className={ styles.ButtonNext }
+        />
       </>
     );
   }
 }
 
 Questions.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  // handleClick: PropTypes.func.isRequired,
+  handleClickChooseAnswer: PropTypes.func.isRequired,
+  handleClickNextQuestion: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  // type: PropTypes.string.isRequired,
   question: PropTypes.string.isRequired,
   correctAnswer: PropTypes.string.isRequired,
   incorrectAnswer: PropTypes.string.isRequired,
   currentIndex: PropTypes.number.isRequired,
+  isAnswered: PropTypes.bool.isRequired,
+
 };
