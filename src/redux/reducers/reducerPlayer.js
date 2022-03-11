@@ -1,4 +1,4 @@
-import { PLAYER_INFOS } from '../action';
+import { PLAYER_INFOS, UPDATE_SCORE } from '../action';
 
 const INITIAL_STATE = {
   player: {
@@ -16,6 +16,14 @@ const reducerPlayer = (state = INITIAL_STATE, action) => {
         ...state.player,
         name: action.payload.name,
         gravatarEmail: action.payload.gravatarEmail,
+      },
+    };
+  }
+  if (action.type === UPDATE_SCORE) {
+    return {
+      player: {
+        ...state.player,
+        score: state.player.score + action.payload,
       },
     };
   }
