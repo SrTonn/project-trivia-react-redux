@@ -111,11 +111,11 @@ export default class Questions extends Component {
         <p className={ styles.Timer }>{`Tempo: ${timer}`}</p>
 
         <div data-testid="answer-options" className={ styles.ContainerAnswer }>
-          {answerList.map(({ question, typeOfAnswer }) => (
+          {answerList.map(({ question: questionToButton, typeOfAnswer }) => (
             <Button
-              key={ question }
-              label={ question }
-              name={ question }
+              key={ questionToButton }
+              label={ questionToButton }
+              name={ questionToButton }
               dataTestId={ typeOfAnswer }
               className={ timer <= 0 || isAnswered
                 ? `${styles[typeOfAnswer.replace(/-\d/, '')]}` : null }
