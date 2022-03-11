@@ -65,13 +65,14 @@ class Game extends Component {
           incorrectAnswer={ questions[index].incorrect_answers }
           handleClick={ this.handleClickChooseAnswer }
         />}
-
-        <Button
-          label="Próximo"
-          dataTestId="btn-next"
-          name="next"
-          onClick={ this.handleClickNextQuestion }
-        />
+        {index !== 0 && ( 
+          <Button
+            label="Próximo"
+            dataTestId="btn-next"
+            name="next"
+            onClick={ this.handleClickNextQuestion }
+          />
+        )}
       </>
     );
   }
