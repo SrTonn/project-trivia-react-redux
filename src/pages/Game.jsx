@@ -18,7 +18,6 @@ class Game extends Component {
     const { token, dispatch } = this.props;
     const INVALID_TOKEN = 3;
     let data = await getQuestions(token);
-
     if (data.response_code === INVALID_TOKEN) {
       const { token: newToken } = await getToken();
       localStorage.setItem('token', newToken);
@@ -58,6 +57,7 @@ class Game extends Component {
           correctAnswer={ questions[index].correct_answer }
           incorrectAnswer={ questions[index].incorrect_answers }
           handleClick={ this.handleClickChooseAnswer }
+          currentIndex={ index }
         />}
 
         <Button
