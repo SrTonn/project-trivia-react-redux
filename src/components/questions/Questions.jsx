@@ -4,7 +4,53 @@ import Button from '../Button/Button';
 import styles from './styles.module.css';
 
 export default class Questions extends Component {
-  shuffleArray = (array) => {
+  state = {
+    initialTimer: 3,
+    timer: 3,
+    answerList: [],
+    localIndex: 0,
+  }
+
+  componentDidMount = () => {
+    const { correctAnswer, incorrectAnswer } = this.props;
+    this.startTimer();
+    this.shuffleArrayAndUpdateState([correctAnswer, ...incorrectAnswer]);
+  }
+
+  startTimer = () => {
+    const ONE_SECOND = 1000;
+
+    const intervalTimer = setInterval(() => {
+      this.setState((prevState) => ({
+        timer: prevState.timer - 1,
+      }));
+    }, ONE_SECOND);
+
+    this.setState({
+      intervalTimer,
+    });
+  }
+
+  componentDidUpdate = () => {
+    const { timer, intervalTimer, localIndex } = this.state;
+    const { correctAnswer, incorrectAnswer, currentIndex } = this.props;
+
+    if (timer === 0) {
+      clearInterval(intervalTimer);
+    }
+
+    if (localIndex !== currentIndex) {
+      this.setState((prevState) => ({
+        localIndex: currentIndex,
+        timer: prevState.initialTimer,
+      }));
+      this.shuffleArrayAndUpdateState([correctAnswer, ...incorrectAnswer]);
+      clearInterval(intervalTimer);
+      this.startTimer();
+    }
+  }
+
+  shuffleArrayAndUpdateState = (array) => {
     let currentIndex = array.length;
     let randomIndex;
 
@@ -19,10 +65,11 @@ export default class Questions extends Component {
         array[currentIndex]];
     }
 
-    return array;
+    this.setState({ answerList: array });
   }
 
   render() {
+    const { timer, answerList } = this.state;
     const {
       category,
       type,
@@ -32,7 +79,6 @@ export default class Questions extends Component {
       incorrectAnswer,
       handleClick,
     } = this.props;
-    const answerList = this.shuffleArray([correctAnswer, ...incorrectAnswer]);
 
     return (
       <>
