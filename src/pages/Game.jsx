@@ -68,6 +68,7 @@ class Game extends Component {
 
         <Button
           label="Próximo"
+          dataTestId="btn-next"
           name="next"
           onClick={ this.handleClickNextQuestion }
         />
