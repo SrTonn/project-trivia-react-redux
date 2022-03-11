@@ -11,6 +11,7 @@ class Game extends Component {
   state = {
     index: 0,
     questions: [],
+    isAnswered: false,
   }
 
   componentDidMount = async () => {
@@ -29,9 +30,10 @@ class Game extends Component {
     });
   }
 
-  handleClickChooseAnswer = ({ target: { name: answer } }) => {
-    const { questions, index } = this.state;
-    const correctAnswer = questions[index].correct_answer;
+  handleClickChooseAnswer = () => {
+    this.setState({
+      isAnswered: true,
+    });
   }
 
   handleClickNextQuestion = async () => {
@@ -41,8 +43,7 @@ class Game extends Component {
   }
 
   render() {
-    const { questions, index } = this.state;
-    const { token, dispatch } = this.props;
+    const { questions, index, isAnswered } = this.state;
     return (
       <>
         <Header />
@@ -52,8 +53,10 @@ class Game extends Component {
           question={ questions[index].question }
           correctAnswer={ questions[index].correct_answer }
           incorrectAnswer={ questions[index].incorrect_answers }
-          handleClick={ this.handleClickChooseAnswer }
+          handleClickChooseAnswer={ this.handleClickChooseAnswer }
           currentIndex={ index }
+          handleClickNextQuestion={ this.handleClickNextQuestion }
+          isAnswered={ isAnswered }
         />}
       </>
     );
