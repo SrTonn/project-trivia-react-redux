@@ -1,10 +1,62 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Button from '../Button/Button';
-// import styles from './styles.module.css';
+import styles from './styles.module.css';
 
 export default class Questions extends Component {
-  shuffleArray = (array) => {
+  state = {
+    initialTimer: 30,
+    timer: 30,
+    answerList: [],
+    localIndex: 0,
+  }
+
+  componentDidMount = () => {
+    const { correctAnswer, incorrectAnswer } = this.props;
+    this.startTimer();
+    this.shuffleArrayAndUpdateState(correctAnswer, incorrectAnswer);
+  }
+
+  startTimer = () => {
+    const ONE_SECOND = 1000;
+
+    const intervalTimer = setInterval(() => {
+      this.setState((prevState) => ({
+        timer: prevState.timer - 1,
+      }));
+    }, ONE_SECOND);
+
+    this.setState({
+      intervalTimer,
+    });
+  }
+
+  componentDidUpdate = () => {
+    const { timer, intervalTimer, localIndex } = this.state;
+    const { correctAnswer, incorrectAnswer, currentIndex, isAnswered } = this.props;
+
+    if (timer === 0 || isAnswered) {
+      clearInterval(intervalTimer);
+    }
+
+    if (localIndex !== currentIndex) {
+      this.setState((prevState) => ({
+        localIndex: currentIndex,
+        timer: prevState.initialTimer,
+      }));
+      this.shuffleArrayAndUpdateState(correctAnswer, incorrectAnswer);
+      clearInterval(intervalTimer);
+      this.startTimer();
+    }
+  }
+
+  shuffleArrayAndUpdateState = (correctAnswer, incorrectAnswer) => {
+    const listWrong = incorrectAnswer.map((answer, index) => (
+      { question: answer, typeOfAnswer: `wrong-answer-${index}` }));
+    const array = [
+      ...listWrong,
+      { question: correctAnswer, typeOfAnswer: 'correct-answer' },
+    ];
     let currentIndex = array.length;
     let randomIndex;
 
@@ -19,55 +71,76 @@ export default class Questions extends Component {
         array[currentIndex]];
     }
 
-    return array;
+    this.setState({ answerList: array });
   }
 
   render() {
+    const { timer, answerList } = this.state;
     const {
       category,
-      type,
+      // type,
       // difficulty,
       question,
-      correctAnswer,
-      incorrectAnswer,
-      handleClick,
+      // correctAnswer,
+      // incorrectAnswer,
+      handleClickChooseAnswer,
+      handleClickNextQuestion,
+      isAnswered,
     } = this.props;
-
-    const listWrong = incorrectAnswer.map((answer, index) => ({ question: answer, datatestid: `wrong-answer-${index}` }));
-    const listAnswer = [...listWrong, { question: correctAnswer, datatestid: 'correct-answer' }];
-    const answerList = this.shuffleArray(listAnswer);
-    console.log(listAnswer);
-    console.log(answerList);
 
     return (
       <>
-        <div /* className={ styles.ContainerQuestion } */>
+        <div className={ styles.ContainerQuestion }>
           <div
-            /* className={ styles.Category } */
+            className={ styles.Category }
             data-testid="question-category"
           >
-            {category}
+            <p>
+              {category}
+            </p>
           </div>
           <p
             data-testid="question-text"
           >
             {question}
-
           </p>
         </div>
-        <div data-testid="answer-options"/* className={ styles.ContainerAnswer } */>
-          {answerList.map((answer) => (
+
+        <p className={ styles.Timer }>{`Tempo: ${timer}`}</p>
+
+        <div data-testid="answer-options" className={ styles.ContainerAnswer }>
+          {answerList.map(({ question: questionToButton, typeOfAnswer }) => (
             <Button
-              key={ answer.question }
-              label={ answer.question }
-              name={ answer.question }
-              dataTestId={answer.datatestid}
-              onClick={ handleClick }
+              key={ questionToButton }
+              label={ questionToButton }
+              name={ questionToButton }
+              dataTestId={ typeOfAnswer }
+              className={ timer <= 0 || isAnswered
+                ? `${styles[typeOfAnswer.replace(/-\d/, '')]}` : null }
+              onClick={ handleClickChooseAnswer }
+              disabled={ timer <= 0 || isAnswered }
             />
           ))}
-          {/* {type === 'boolean' ? '2 questions - type bool' : '5 questions'} */}
         </div>
+        <Button
+          label="Próximo"
+          name="next"
+          onClick={ handleClickNextQuestion }
+          className={ styles.ButtonNext }
+        />
       </>
     );
   }
 }
+
+Questions.propTypes = {
+  handleClickChooseAnswer: PropTypes.func.isRequired,
+  handleClickNextQuestion: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
+  question: PropTypes.string.isRequired,
+  correctAnswer: PropTypes.string.isRequired,
+  incorrectAnswer: PropTypes.string.isRequired,
+  currentIndex: PropTypes.number.isRequired,
+  isAnswered: PropTypes.bool.isRequired,
+
+};
