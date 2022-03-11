@@ -33,9 +33,6 @@ class Game extends Component {
   handleClickChooseAnswer = ({ target: { name: answer } }) => {
     const { questions, index } = this.state;
     const correctAnswer = questions[index].correct_answer;
-    console.log('clicado=>', answer);
-    console.log('res correta=>', correctAnswer);
-    console.log('a resposta está correta?', correctAnswer === answer);
   }
 
   handleClickNextQuestion = async () => {
