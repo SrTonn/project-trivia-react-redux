@@ -122,8 +122,8 @@ export default class Questions extends Component {
             />
           ))}
         </div>
-        {isAnswered &&
-          <Button
+        {isAnswered
+          && <Button
             label="Próximo"
             name="next"
             dataTestId="btn-next"
