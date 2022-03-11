@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Button from '../Button/Button';
-import styles from './styles.module.css';
+// import styles from './styles.module.css';
 
 export default class Questions extends Component {
   shuffleArray = (array) => {
@@ -32,13 +32,18 @@ export default class Questions extends Component {
       incorrectAnswer,
       handleClick,
     } = this.props;
-    const answerList = this.shuffleArray([correctAnswer, ...incorrectAnswer]);
+
+    const listWrong = incorrectAnswer.map((answer, index) => ({ question: answer, datatestid: `wrong-answer-${index}` }));
+    const listAnswer = [...listWrong, { question: correctAnswer, datatestid: 'correct-answer' }];
+    const answerList = this.shuffleArray(listAnswer);
+    console.log(listAnswer);
+    console.log(answerList);
 
     return (
       <>
-        <div className={ styles.ContainerQuestion }>
+        <div /* className={ styles.ContainerQuestion } */>
           <div
-            className={ styles.Category }
+            /* className={ styles.Category } */
             data-testid="question-category"
           >
             {category}
@@ -50,12 +55,13 @@ export default class Questions extends Component {
 
           </p>
         </div>
-        <div className={ styles.ContainerAnswer }>
+        <div data-testid="answer-options"/* className={ styles.ContainerAnswer } */>
           {answerList.map((answer) => (
             <Button
-              key={ answer }
-              label={ answer }
-              name={ answer }
+              key={ answer.question }
+              label={ answer.question }
+              name={ answer.question }
+              dataTestId={answer.datatestid}
               onClick={ handleClick }
             />
           ))}
