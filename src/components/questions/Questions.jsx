@@ -122,12 +122,14 @@ export default class Questions extends Component {
             />
           ))}
         </div>
-        <Button
-          label="Próximo"
-          name="next"
-          onClick={ handleClickNextQuestion }
-          className={ styles.ButtonNext }
-        />
+        {isAnswered &&
+          <Button
+            label="Próximo"
+            name="next"
+            dataTestId="btn-next"
+            onClick={ handleClickNextQuestion }
+            className={ styles.ButtonNext }
+          />}
       </>
     );
   }
