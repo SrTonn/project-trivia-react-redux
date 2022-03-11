@@ -6,7 +6,6 @@ import updateData, { UPDATE_TOKEN } from '../redux/action';
 import getQuestions from '../services/getQuestions';
 import getToken from '../services/getToken';
 import Questions from '../components/questions/Questions';
-import Button from '../components/Button/Button';
 
 class Game extends Component {
   state = {
@@ -56,12 +55,6 @@ class Game extends Component {
           handleClick={ this.handleClickChooseAnswer }
           currentIndex={ index }
         />}
-
-        <Button
-          label="Próximo"
-          name="next"
-          onClick={ this.handleClickNextQuestion }
-        />
       </>
     );
   }
