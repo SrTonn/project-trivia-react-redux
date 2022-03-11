@@ -43,6 +43,11 @@ class Game extends Component {
     this.setState((prevState) => ({
       index: prevState.index + 1,
     }));
+    if (index === 5) {
+      const { history: { push } } = this.props;
+      push('/feedback');
+    } 
+    }
   }
 
   render() {
@@ -80,4 +85,7 @@ export default connect(mapStateToProps)(Game);
 Game.propTypes = {
   token: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
