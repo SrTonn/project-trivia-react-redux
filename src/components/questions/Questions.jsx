@@ -47,9 +47,9 @@ export default class Questions extends Component {
             data-testid="question-text"
           >
             {question}
-
           </p>
         </div>
+        <p className={ styles.Timer }>{`Tempo: ${timer}`}</p>
         <div className={ styles.ContainerAnswer }>
           {answerList.map((answer) => (
             <Button
