@@ -44,12 +44,18 @@ class Game extends Component {
     });
   }
 
-  handleClickNextQuestion = async () => {
+  handleClickNextQuestion = () => {
+    const { index } = this.state;
     this.setState((prevState) => ({
       index: prevState.index + 1,
       isAnswered: false,
     }));
-  }
+    const INDEX_NUMBER = 4;
+    if (index === INDEX_NUMBER) {
+      const { history: { push } } = this.props;
+      push('/feedback');
+    }
+  };
 
   render() {
     const { questions, index, isAnswered, selectedAnswer } = this.state;
@@ -84,4 +90,7 @@ export default connect(mapStateToProps)(Game);
 Game.propTypes = {
   token: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
