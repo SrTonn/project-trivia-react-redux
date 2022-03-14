@@ -4,29 +4,6 @@ import PropTypes from 'prop-types';
 import getGravatarPicture from '../../services/getGravatarPicture';
 
 class Header extends Component {
-  componentDidMount = () => {
-    const { name, score, gravatarEmail } = this.props;
-    console.log('componentDidMount -> HEADER');
-    console.log('gravatarEmail=>', gravatarEmail);
-    const oldStorage = JSON.parse(localStorage.getItem('ranking'));
-    const hasEmail = oldStorage.some(({ email }) => email === gravatarEmail);
-    console.log('oldStorage=>', oldStorage);
-    console.log('hasEmail=>', hasEmail);
-  }
-
-  componentDidUpdate = () => {
-    const { name, score, gravatarEmail } = this.props;
-    console.log('componentDidUpdate -> HEADER');
-    // [
-    //   { name: nome-da-pessoa, score: 10, picture: url-da-foto-no-gravatar }
-    // ]
-    const newStorage = {
-      name,
-      score,
-      picture: gravatarEmail,
-    };
-  }
-
   render() {
     const {
       gravatarEmail,
@@ -64,8 +41,8 @@ Header.propTypes = {
   score: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({ reducerPlayer }) => ({
-  ...reducerPlayer.player,
+const mapStateToProps = ({ player }) => ({
+  ...player,
 });
 
 export default connect(mapStateToProps)(Header);
