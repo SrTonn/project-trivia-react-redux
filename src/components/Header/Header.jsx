@@ -24,11 +24,9 @@ class Header extends Component {
           Nome:
           { name }
         </h3>
-        <h3
-          data-testid="header-score"
-        >
+        <h3>
           Pontos:
-          { score }
+          <span data-testid="header-score">{ score }</span>
         </h3>
       </header>
     );
