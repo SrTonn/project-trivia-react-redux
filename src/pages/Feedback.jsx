@@ -5,9 +5,10 @@ import Header from '../components/Header/Header';
 import Button from '../components/Button/Button';
 
 class Feedback extends Component {
-  handleClick = () => {
+  handleClick = ({ target: { name } }) => {
     const { history: { push } } = this.props;
-    push('/');
+    if (name === 'playAgain') push('/');
+    if (name === 'Ranking') push('/ranking');
   }
 
   render() {
@@ -35,10 +36,16 @@ class Feedback extends Component {
           pontos
         </p>
         <Button
+          dataTestId="btn-ranking"
+          label="Ranking"
+          name="Ranking"
+          onClick={ (e) => this.handleClick(e) }
+        />
+        <Button
           dataTestId="btn-play-again"
           label="Play Again"
-          name="play again"
-          onClick={ this.handleClick }
+          name="playAgain"
+          onClick={ (e) => this.handleClick(e) }
         />
       </>
     );
