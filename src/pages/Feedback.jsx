@@ -6,6 +6,7 @@ export default class Settings extends Component {
     return (
       <div>
         <Header />
+        <p data-testid="feedback-text">...</p>
       </div>
     );
   }

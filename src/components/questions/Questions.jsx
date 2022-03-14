@@ -160,7 +160,7 @@ class Questions extends Component {
             />
           ))}
         </div>
-        {isAnswered
+        {(timer <= 0 || isAnswered)
           && <Button
             label="Próximo"
             name="next"
