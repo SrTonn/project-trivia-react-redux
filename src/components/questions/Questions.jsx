@@ -84,8 +84,6 @@ class Questions extends Component {
       const TEEN = 10;
       const difficulty = this.getDifficulty();
       const score = TEEN + (difficulty * timer);
-      const totalScore = score;
-      // localStorage.setItem('score', totalScore);
       dispatch(updateData(UPDATE_SCORE, score));
     }
   }
