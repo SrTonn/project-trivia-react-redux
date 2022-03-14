@@ -7,6 +7,7 @@ import './App.css';
 import store from './redux/store';
 import Game from './pages/Game';
 import Settings from './pages/Settings';
+import Feedback from './pages/Feedback';
 
 export default class App extends React.Component {
   render() {
@@ -17,6 +18,7 @@ export default class App extends React.Component {
             <Route exact path="/" component={ Home } />
             <Route path="/game" component={ Game } />
             <Route path="/settings" component={ Settings } />
+            <Route path="/feedback" component={ Feedback } />
           </Switch>
         </BrowserRouter>
       </Provider>

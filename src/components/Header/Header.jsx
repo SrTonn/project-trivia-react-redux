@@ -38,11 +38,11 @@ class Header extends Component {
 Header.propTypes = {
   gravatarEmail: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  score: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = ({ reducerPlayer }) => ({
-  ...reducerPlayer.player,
+const mapStateToProps = ({ player }) => ({
+  ...player,
 });
 
 export default connect(mapStateToProps)(Header);

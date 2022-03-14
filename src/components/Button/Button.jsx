@@ -9,7 +9,7 @@ export default class Button extends Component {
         type="button"
         data-testid={ dataTestId }
         disabled={ disabled }
-        onClick={ onClick }
+        onClick={ (e) => onClick(e) }
         name={ name }
         className={ className }
       >
@@ -19,11 +19,17 @@ export default class Button extends Component {
   }
 }
 
+Button.defaultProps = {
+  className: '',
+  dataTestId: '',
+  disabled: false,
+};
+
 Button.propTypes = {
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  disabled: PropTypes.string.isRequired,
-  dataTestId: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  dataTestId: PropTypes.string,
   name: PropTypes.string.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };

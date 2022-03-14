@@ -1,8 +1,6 @@
 import { UPDATE_TOKEN } from '../action';
 
-const INITIAL_STATE = {
-  token: '',
-};
+const INITIAL_STATE = '';
 
 const reducerToken = (state = INITIAL_STATE, action) => {
   if (action.type === UPDATE_TOKEN) {
