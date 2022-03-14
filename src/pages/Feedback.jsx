@@ -5,14 +5,28 @@ import Header from '../components/Header/Header';
 
 class Settings extends Component {
   render() {
-    const { assertions } = this.props;
+    const { assertions, score } = this.props;
     const NUMBER_THREE = 3;
 
     return (
       <div>
         <Header />
-        <p data-testid="feedback-text">
+        <h2 data-testid="feedback-text">
           {assertions < NUMBER_THREE ? 'Could be better...' : 'Well Done!'}
+        </h2>
+        <p>
+          Você acertou
+          {' '}
+          <span data-testid="feedback-total-question">{assertions}</span>
+          {' '}
+          questões
+        </p>
+        <p>
+          Um total de
+          {' '}
+          <span data-testid="feedback-total-score">{score}</span>
+          {' '}
+          pontos
         </p>
       </div>
     );
@@ -27,4 +41,5 @@ export default connect(mapStateToProps)(Settings);
 
 Settings.propTypes = {
   assertions: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
 };
