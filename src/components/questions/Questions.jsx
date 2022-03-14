@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import sanitizeHtml from 'sanitize-html';
 import updateData, { UPDATE_SCORE } from '../../redux/action';
 import Button from '../Button/Button';
 import styles from './styles.module.css';
@@ -125,6 +126,7 @@ class Questions extends Component {
       handleClickNextQuestion,
       isAnswered,
     } = this.props;
+    const clean = sanitizeHtml(question);
 
     return (
       <>
@@ -139,9 +141,8 @@ class Questions extends Component {
           </div>
           <p
             data-testid="question-text"
-          >
-            {question}
-          </p>
+            dangerouslySetInnerHTML={ { __html: clean } }
+          />
         </div>
 
         <p className={ styles.Timer }>{`Tempo: ${timer}`}</p>
