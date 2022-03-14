@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header/Header';
 
-class Settings extends Component {
+class Feedback extends Component {
   render() {
     const { assertions, score } = this.props;
     const NUMBER_THREE = 3;
@@ -37,9 +37,9 @@ const mapStateToProps = ({ player }) => ({
   ...player,
 });
 
-export default connect(mapStateToProps)(Settings);
+export default connect(mapStateToProps)(Feedback);
 
-Settings.propTypes = {
+Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
 };
