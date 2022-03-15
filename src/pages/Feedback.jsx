@@ -11,6 +11,17 @@ class Feedback extends Component {
     if (name === 'Ranking') push('/ranking');
   }
 
+  componentDidMount = () => {
+    const storage = JSON.parse(localStorage.getItem('ranking'));
+    const { name, score, gravatarEmail } = this.props;
+    /* if (storage === null) {
+      localStorage.setItem('ranking', JSON.stringify([{ name, score, gravatarEmail }]));
+    } */
+    storage.push({ name, score, gravatarEmail });
+    storage.sort((a, b) => b.score - a.score);
+    localStorage.setItem('ranking', JSON.stringify(storage));
+  }
+
   render() {
     const { assertions, score } = this.props;
     const NUMBER_THREE = 3;
@@ -60,6 +71,8 @@ export default connect(mapStateToProps)(Feedback);
 
 Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,

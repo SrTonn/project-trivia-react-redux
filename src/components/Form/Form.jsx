@@ -41,6 +41,8 @@ class Form extends Component {
     dispatch(updateData(PLAYER_INFOS, {
       name: textInput,
       gravatarEmail: emailInput,
+      score: 0,
+      assertions: 0,
     }));
     if (name === 'buttonSettings') push('/settings');
     if (name === 'buttonGame') push('/game');
