@@ -130,19 +130,19 @@ class Questions extends Component {
 
     return (
       <>
-        <div className={ styles.ContainerQuestion }>
+        <div className={ styles.ContainerQuestionAndCategory }>
           <div
-            className={ styles.Category }
+            className={ styles.ContainerCategory }
             data-testid="question-category"
           >
-            <p>
-              {category}
-            </p>
+            <p>{category}</p>
           </div>
-          <p
-            data-testid="question-text"
-            dangerouslySetInnerHTML={ { __html: clean } }
-          />
+          <div className={ styles.ContainerQuestion }>
+            <p
+              data-testid="question-text"
+              dangerouslySetInnerHTML={ { __html: clean } }
+            />
+          </div>
         </div>
 
         <p className={ styles.Timer }>{`Tempo: ${timer}`}</p>

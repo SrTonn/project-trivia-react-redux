@@ -1,4 +1,4 @@
-.ContainerQuestion {
+.ContainerQuestionAndCategory {
   align-items: center;
   background-color: #c4c4c4;
   display: flex;
@@ -8,25 +8,32 @@
   width: 296px;
 }
 
-.ContainerQuestion p {
+.ContainerQuestionAndCategory p {
   font-size: 30px;
   font-style: normal;
   font-weight: 400;
   letter-spacing: 0;
   line-height: 35px;
-  text-align: left;
+  text-align: justify;
 }
 
-.Category {
+.ContainerQuestion {
+  align-items: center;
+  display: flex;
+  height: 100%;
+}
+
+.ContainerCategory {
   align-items: center;
   background-color: #ddd;
   display: flex;
-  height: 48px;
   justify-content: center;
+  min-height: 48px;
+  padding: 5px;
   width: 273px;
 }
 
-.Category p {
+.ContainerCategory p {
   font-size: 25px;
   font-style: normal;
   font-weight: 400;
