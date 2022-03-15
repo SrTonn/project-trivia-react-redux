@@ -14,7 +14,7 @@ export default class Ranking extends Component {
     return (
       <div>
         <h1 data-testid="ranking-title">Ranking</h1>
-        {storage.map((player, index) => (
+        {storage?.map((player, index) => (
           <div key={ index }>
             <img
               src={ getGravatarPicture(player.gravatarEmail) }
