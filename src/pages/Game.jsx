@@ -80,8 +80,8 @@ class Game extends Component {
   }
 }
 
-const mapStateToProps = ({ reducerPlayer, token }) => ({
-  ...reducerPlayer,
+const mapStateToProps = ({ player, token }) => ({
+  ...player,
   token,
 });
 

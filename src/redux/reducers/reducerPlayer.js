@@ -10,9 +10,7 @@ const INITIAL_STATE = {
 const reducerPlayer = (state = INITIAL_STATE, action) => {
   if (action.type === PLAYER_INFOS) {
     return {
-      ...state,
-      name: action.payload.name,
-      gravatarEmail: action.payload.gravatarEmail,
+      ...action.payload,
     };
   }
   if (action.type === UPDATE_SCORE) {
