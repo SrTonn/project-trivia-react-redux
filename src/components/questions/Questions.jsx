@@ -128,7 +128,7 @@ class Questions extends Component {
     } = this.props;
 
     return (
-      <>
+      <main className={ styles.Main }>
         <div className={ styles.ContainerQuestionAndCategory }>
           <div
             className={ styles.ContainerCategory }
@@ -148,9 +148,8 @@ class Questions extends Component {
                 />
               )}
           </div>
+          <p className={ styles.Timer }>{`Tempo: ${timer}`}</p>
         </div>
-
-        <p className={ styles.Timer }>{`Tempo: ${timer}`}</p>
 
         <div data-testid="answer-options" className={ styles.ContainerAnswer }>
           {answerList.map(({ question: questionToButton, typeOfAnswer }) => {
@@ -161,15 +160,15 @@ class Questions extends Component {
                 label={ cleanQuestion }
                 name={ cleanQuestion }
                 dataTestId={ typeOfAnswer }
-                className={ timer <= 0 || isAnswered
-                  ? `${styles[typeOfAnswer.replace(/-\d/, '')]}` : null }
+                className={ `${timer <= 0 || isAnswered
+                  ? `${styles[typeOfAnswer.replace(/-\d/, '')]}`
+                  : null} ${styles.AnswerButton}` }
                 onClick={ handleClickChooseAnswer }
                 disabled={ timer <= 0 || isAnswered }
               />
             );
           })}
-        </div>
-        {(timer <= 0 || isAnswered)
+          {(timer <= 0 || isAnswered)
           && <Button
             label="Próximo"
             name="next"
@@ -177,7 +176,8 @@ class Questions extends Component {
             onClick={ handleClickNextQuestion }
             className={ styles.ButtonNext }
           />}
-      </>
+        </div>
+      </main>
     );
   }
 }

@@ -1,9 +1,14 @@
+.Main {
+  display: flex;
+}
+
 .ContainerQuestionAndCategory {
   background-color: #c4c4c4;
   display: flex;
   flex-direction: column;
   min-height: 291px;
   padding: 10px;
+  position: relative;
   width: 296px;
 }
 
@@ -45,19 +50,47 @@
   text-align: center;
 }
 
+.ContainerAnswer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  width: 100%;
+}
+
+.AnswerButton {
+  font-size: 18px;
+  font-weight: 600;
+  height: 40px;
+  min-width: 450px;
+}
+
 .Timer {
+  bottom: -40px;
   color: red;
+  position: absolute;
 }
 
 .ButtonNext {
-  background-color: green;
+  background-color: transparent;
+  bottom: -50px;
   color: black;
+  font-size: 18px;
+  font-weight: 600;
+  height: 50px;
+  position: absolute;
+  width: 100px;
 }
 
-.correct-answer {
+.correct-answer, .correct-answer:disabled {
+  background-color: rgb(6, 240, 15);
   border: 3px solid rgb(6, 240, 15);
+  color: white;
 }
 
-.wrong-answer {
+.wrong-answer, .wrong-answer:disabled {
+  background-color: red;
   border: 3px solid red;
+  color: white;
 }
