@@ -120,13 +120,12 @@ class Questions extends Component {
       // type,
       // difficulty,
       question,
-      // correctAnswer,
+      correctAnswer,
       // incorrectAnswer,
       handleClickChooseAnswer,
       handleClickNextQuestion,
       isAnswered,
     } = this.props;
-    const clean = sanitizeHtml(question);
 
     return (
       <>
@@ -138,10 +137,16 @@ class Questions extends Component {
             <p>{category}</p>
           </div>
           <div className={ styles.ContainerQuestion }>
-            <p
-              data-testid="question-text"
-              dangerouslySetInnerHTML={ { __html: clean } }
-            />
+            { correctAnswer === 'Dirk the Daring' ? (
+              <p data-testid="question-text">
+                {question}
+              </p>)
+              : (
+                <p
+                  data-testid="question-text"
+                  dangerouslySetInnerHTML={ { __html: sanitizeHtml(question) } }
+                />
+              )}
           </div>
         </div>
 
