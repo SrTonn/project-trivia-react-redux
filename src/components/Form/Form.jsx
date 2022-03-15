@@ -32,7 +32,7 @@ class Form extends Component {
     });
   }
 
-  handleClick = async () => {
+  handleClick = async ({ target: { name } }) => {
     const { history: { push }, dispatch } = this.props;
     const { token } = await getToken();
     const { emailInput, textInput } = this.state;
@@ -42,7 +42,8 @@ class Form extends Component {
       name: textInput,
       gravatarEmail: emailInput,
     }));
-    push('/game');
+    if (name === 'buttonSettings') push('/settings');
+    if (name === 'buttonGame') push('/game');
   }
 
   render() {
@@ -54,8 +55,9 @@ class Form extends Component {
           type="button"
           label="⚙️ Configurações"
           dataTestId="btn-settings"
-          onClick={ this.handleClick }
+          onClick={ (e) => this.handleClick(e) }
           className={ styles.ButtonSettings }
+          name="buttonSettings"
         />
         <Input
           id="email"
@@ -85,6 +87,7 @@ class Form extends Component {
           onClick={ this.handleClick }
           label="🕹️ Jogar"
           className={ styles.ButtonPlay }
+          name="buttonGame"
         />
       </form>
     );
