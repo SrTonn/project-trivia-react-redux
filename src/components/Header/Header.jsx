@@ -22,10 +22,12 @@ class Header extends Component {
           data-testid="header-player-name"
         >
           Nome:
+          {' '}
           { name }
         </h3>
         <h3>
           Pontos:
+          {' '}
           <span data-testid="header-score">{ score }</span>
         </h3>
       </header>
