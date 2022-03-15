@@ -153,18 +153,21 @@ class Questions extends Component {
         <p className={ styles.Timer }>{`Tempo: ${timer}`}</p>
 
         <div data-testid="answer-options" className={ styles.ContainerAnswer }>
-          {answerList.map(({ question: questionToButton, typeOfAnswer }) => (
-            <Button
-              key={ questionToButton }
-              label={ questionToButton }
-              name={ questionToButton }
-              dataTestId={ typeOfAnswer }
-              className={ timer <= 0 || isAnswered
-                ? `${styles[typeOfAnswer.replace(/-\d/, '')]}` : null }
-              onClick={ handleClickChooseAnswer }
-              disabled={ timer <= 0 || isAnswered }
-            />
-          ))}
+          {answerList.map(({ question: questionToButton, typeOfAnswer }) => {
+            const cleanQuestion = sanitizeHtml(questionToButton);
+            return (
+              <Button
+                key={ cleanQuestion }
+                label={ cleanQuestion }
+                name={ cleanQuestion }
+                dataTestId={ typeOfAnswer }
+                className={ timer <= 0 || isAnswered
+                  ? `${styles[typeOfAnswer.replace(/-\d/, '')]}` : null }
+                onClick={ handleClickChooseAnswer }
+                disabled={ timer <= 0 || isAnswered }
+              />
+            );
+          })}
         </div>
         {(timer <= 0 || isAnswered)
           && <Button
