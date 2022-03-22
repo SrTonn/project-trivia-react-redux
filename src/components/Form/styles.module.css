@@ -1,0 +1,35 @@
+.EmailInput {
+  margin-bottom: 2px;
+}
+
+.EmailInput, .TextInput, .EmailInput:focus-visible {
+  border-color: transparent;
+  border-radius: 4px;
+  height: 18px;
+  margin-left: 5px;
+  outline: none;
+  padding: 3px;
+  transform: translateY(-20%);
+  width: 114px;
+}
+
+
+.ButtonPlay {
+  color: white;
+  height: 25px;
+  width: 65px;
+}
+
+.ButtonPlay, .ButtonPlay:disabled, .ButtonSettings {
+  background-color: transparent;
+}
+
+.ButtonSettings {
+  color: white;
+  height: 25px;
+  margin-bottom: 8px;
+}
+
+.ContainerButtons {
+  display: flex;
+}

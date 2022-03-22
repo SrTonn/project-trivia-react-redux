@@ -13,13 +13,6 @@ class Home extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <button
-            type="button"
-            data-testid="btn-settings"
-            onClick={ this.handleClick }
-          >
-            Configurações
-          </button>
           <img src={ logo } className="App-logo" alt="logo" />
           <Form { ...this.props } />
         </header>
@@ -27,6 +20,7 @@ class Home extends Component {
     );
   }
 }
+
 export default Home;
 
 Home.propTypes = {

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import sanitizeHtml from 'sanitize-html';
 import updateData, { UPDATE_SCORE } from '../../redux/action';
 import Button from '../Button/Button';
 import styles from './styles.module.css';
@@ -119,7 +120,7 @@ class Questions extends Component {
       // type,
       // difficulty,
       question,
-      // correctAnswer,
+      correctAnswer,
       // incorrectAnswer,
       handleClickChooseAnswer,
       handleClickNextQuestion,
@@ -127,40 +128,47 @@ class Questions extends Component {
     } = this.props;
 
     return (
-      <>
-        <div className={ styles.ContainerQuestion }>
+      <main className={ styles.Main }>
+        <div className={ styles.ContainerQuestionAndCategory }>
           <div
-            className={ styles.Category }
+            className={ styles.ContainerCategory }
             data-testid="question-category"
           >
-            <p>
-              {category}
-            </p>
+            <p>{category}</p>
           </div>
-          <p
-            data-testid="question-text"
-          >
-            {question}
-          </p>
+          <div className={ styles.ContainerQuestion }>
+            { correctAnswer === 'Dirk the Daring' ? (
+              <p data-testid="question-text">
+                {question}
+              </p>)
+              : (
+                <p
+                  data-testid="question-text"
+                  dangerouslySetInnerHTML={ { __html: sanitizeHtml(question) } }
+                />
+              )}
+          </div>
+          <p className={ styles.Timer }>{`Tempo: ${timer}`}</p>
         </div>
-
-        <p className={ styles.Timer }>{`Tempo: ${timer}`}</p>
 
         <div data-testid="answer-options" className={ styles.ContainerAnswer }>
-          {answerList.map(({ question: questionToButton, typeOfAnswer }) => (
-            <Button
-              key={ questionToButton }
-              label={ questionToButton }
-              name={ questionToButton }
-              dataTestId={ typeOfAnswer }
-              className={ timer <= 0 || isAnswered
-                ? `${styles[typeOfAnswer.replace(/-\d/, '')]}` : null }
-              onClick={ handleClickChooseAnswer }
-              disabled={ timer <= 0 || isAnswered }
-            />
-          ))}
-        </div>
-        {(timer <= 0 || isAnswered)
+          {answerList.map(({ question: questionToButton, typeOfAnswer }) => {
+            const cleanQuestion = sanitizeHtml(questionToButton);
+            return (
+              <Button
+                key={ cleanQuestion }
+                label={ cleanQuestion }
+                name={ cleanQuestion }
+                dataTestId={ typeOfAnswer }
+                className={ `${timer <= 0 || isAnswered
+                  ? `${styles[typeOfAnswer.replace(/-\d/, '')]}`
+                  : null} ${styles.AnswerButton}` }
+                onClick={ handleClickChooseAnswer }
+                disabled={ timer <= 0 || isAnswered }
+              />
+            );
+          })}
+          {(timer <= 0 || isAnswered)
           && <Button
             label="Próximo"
             name="next"
@@ -168,7 +176,8 @@ class Questions extends Component {
             onClick={ handleClickNextQuestion }
             className={ styles.ButtonNext }
           />}
-      </>
+        </div>
+      </main>
     );
   }
 }

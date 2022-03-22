@@ -15,7 +15,7 @@ export default class Input extends Component {
       onKeyPress,
     } = this.props;
     return (
-      <label htmlFor={ id }>
+      <label htmlFor={ id } style={ { display: 'block' } }>
         {`${label}:`}
         <input
           id={ id }

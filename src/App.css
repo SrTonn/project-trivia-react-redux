@@ -4,6 +4,7 @@
 
 .App-logo {
   height: 40vmin;
+  padding-bottom: 15px;
   pointer-events: none;
 }
 
@@ -54,4 +55,9 @@
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+
+button {
+  background-repeat: no-repeat;
+  border: none;
 }

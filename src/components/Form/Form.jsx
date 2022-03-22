@@ -5,6 +5,7 @@ import Input from '../Input/Input';
 import getToken from '../../services/getToken';
 import updateData, { PLAYER_INFOS, UPDATE_TOKEN } from '../../redux/action';
 import Button from '../Button/Button';
+import styles from './styles.module.css';
 
 class Form extends Component {
   state = {
@@ -31,7 +32,7 @@ class Form extends Component {
     });
   }
 
-  handleClick = async () => {
+  handleClick = async ({ target: { name } }) => {
     const { history: { push }, dispatch } = this.props;
     const { token } = await getToken();
     const { emailInput, textInput } = this.state;
@@ -43,14 +44,23 @@ class Form extends Component {
       score: 0,
       assertions: 0,
     }));
-    push('/game');
+    if (name === 'buttonSettings') push('/settings');
+    if (name === 'buttonGame') push('/game');
   }
 
   render() {
     const { emailInput, textInput, isDisabled } = this.state;
 
     return (
-      <form>
+      <form className={ styles.Form }>
+        <Button
+          type="button"
+          label="⚙️ Configurações"
+          dataTestId="btn-settings"
+          onClick={ (e) => this.handleClick(e) }
+          className={ styles.ButtonSettings }
+          name="buttonSettings"
+        />
         <Input
           id="email"
           type="email"
@@ -60,6 +70,7 @@ class Form extends Component {
           handleChange={ this.handleChange }
           onKeyPress={ this.handleClick }
           dataTestId="input-gravatar-email"
+          className={ styles.EmailInput }
         />
         <Input
           id="text"
@@ -70,12 +81,15 @@ class Form extends Component {
           handleChange={ this.handleChange }
           onKeyPress={ this.handleClick }
           dataTestId="input-player-name"
+          className={ styles.TextInput }
         />
         <Button
           dataTestId="btn-play"
           disabled={ isDisabled }
           onClick={ this.handleClick }
-          label="Jogar"
+          label="🕹️ Jogar"
+          className={ styles.ButtonPlay }
+          name="buttonGame"
         />
       </form>
     );
